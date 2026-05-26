@@ -1,0 +1,12 @@
+[
+  { "id": 1, "idea": "AI app for students to learn math", "category": "EdTech" },
+  { "id": 2, "idea": "Online platform for coding bootcamps", "category": "EdTech" },
+  { "id": 3, "idea": "Crypto wallet and decentralized exchange", "category": "FinTech" },
+  { "id": 4, "idea": "AI budgeting and personal finance manager", "category": "FinTech" },
+  { "id": 5, "idea": "Telemedicine app for remote consultations", "category": "HealthTech" },
+  { "id": 6, "idea": "AI symptom checker and health tracker", "category": "HealthTech" },
+  { "id": 7, "idea": "Smart farming IoT sensors for crop yield optimization", "category": "AgriTech" },
+  { "id": 8, "idea": "Drone based pesticide spraying service", "category": "AgriTech" },
+  { "id": 9, "idea": "Cloud based HR management software", "category": "SaaS" },
+  { "id": 10, "idea": "AI customer support chatbot platform", "category": "SaaS" }
+]
