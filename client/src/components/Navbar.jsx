@@ -10,7 +10,7 @@ export default function Navbar({ onMenuClick }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("http://localhost:5001/api/user/profile", {
+        const res = await axios.get("https://ai-startup-builder-k422.onrender.com/api/user/profile", {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         });
         setUser(res.data);
