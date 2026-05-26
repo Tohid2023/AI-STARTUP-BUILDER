@@ -14,7 +14,7 @@ export default function Register() {
     setLoading(true);
     setError("");
     try {
-      await axios.post("https://ai-startup-builder-k422.onrender.com/api/user/register", form);
+      await axios.post("http://localhost:5001/api/user/register", form);
       navigate("/");
     } catch (err) {
       setError(err.response?.data?.message || "Registration failed. Please try again.");

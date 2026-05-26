@@ -14,7 +14,7 @@ export default function Settings() {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("https://ai-startup-builder-k422.onrender.com/api/user/profile", {
+        const res = await axios.get("http://localhost:5001/api/user/profile", {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         });
         setForm({ name: res.data.name, email: res.data.email, currentPassword: "", newPassword: "" });
@@ -45,7 +45,7 @@ export default function Settings() {
         updateData.currentPassword = form.currentPassword;
       }
       
-      const res = await axios.put("https://ai-startup-builder-k422.onrender.com/api/user/profile", updateData, {
+      const res = await axios.put("http://localhost:5001/api/user/profile", updateData, {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       });
       

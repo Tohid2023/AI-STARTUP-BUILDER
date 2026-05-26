@@ -27,13 +27,6 @@ This repository is organized into three main services, each serving a distinct p
 
 ---
 
-## 🌍 Deployed Application
-
-- **Frontend Live URL:** [https://ai-startup-builder-alpha.vercel.app](https://ai-startup-builder-alpha.vercel.app)
-- **Backend Live API:** [https://ai-startup-builder-k422.onrender.com](https://ai-startup-builder-k422.onrender.com)
-
----
-
 ## 🚀 How to Start the Project
 
 To run the full application locally, you will need to start all three services in separate terminal windows.

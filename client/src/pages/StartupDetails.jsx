@@ -23,7 +23,7 @@ export default function StartupDetails() {
   const fetchStartup = async () => {
     setLoading(true);
     try {
-      const res = await axios.get("https://ai-startup-builder-k422.onrender.com/api/startup/my", {
+      const res = await axios.get("http://localhost:5001/api/startup/my", {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       });
       const found = res.data.find(s => s._id === id);
@@ -44,7 +44,7 @@ export default function StartupDetails() {
     if (!window.confirm("Are you sure you want to delete this startup?")) return;
     
     try {
-      await axios.delete(`https://ai-startup-builder-k422.onrender.com/api/startup/${id}`, {
+      await axios.delete(`http://localhost:5001/api/startup/${id}`, {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       });
       navigate("/dashboard");
@@ -56,7 +56,7 @@ export default function StartupDetails() {
 
   const handleSave = async () => {
     try {
-      const res = await axios.patch(`https://ai-startup-builder-k422.onrender.com/api/startup/${id}/save`, {}, {
+      const res = await axios.patch(`http://localhost:5001/api/startup/${id}/save`, {}, {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       });
       setIsSaved(res.data.isSaved);
@@ -70,7 +70,7 @@ export default function StartupDetails() {
     
     setLoading(true);
     try {
-      const res = await axios.post(`https://ai-startup-builder-k422.onrender.com/api/startup/${id}/regenerate`, {}, {
+      const res = await axios.post(`http://localhost:5001/api/startup/${id}/regenerate`, {}, {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       });
       setStartup(res.data.startup);
