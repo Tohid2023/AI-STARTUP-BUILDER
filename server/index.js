@@ -7,6 +7,7 @@ const connectDB = require("./config/db");
 const testRoutes = require("./routes/testRoutes");
 const userRoutes = require("./routes/userRoutes");
 const startupRoutes = require("./routes/startupRoutes");
+const adminRoutes = require("./routes/adminRoutes");
 
 const app = express();
 
@@ -35,6 +36,7 @@ connectDB();
 app.use("/api", testRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/startup", startupRoutes);
+app.use("/api/admin", adminRoutes);
 
 app.get("/", (req, res) => {
   res.send("API is running...");

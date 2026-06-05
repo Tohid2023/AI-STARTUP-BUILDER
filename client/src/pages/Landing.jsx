@@ -1,9 +1,20 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 import { Sparkles, ArrowRight, Zap, Target, TrendingUp, Cpu, BarChart3, Layout, ChevronRight, Menu, X, CheckCircle2, Lock, Globe, Database } from "lucide-react";
 
 export default function Landing() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const handleAdminSetup = async () => {
+    try {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user/setup-admin`);
+      alert(res.data.message);
+    } catch (error) {
+      console.error("Admin setup failed:", error);
+      alert("Failed to initialize admin credentials.");
+    }
+  };
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans selection:bg-brand-500/30">
       {/* NAVBAR */}

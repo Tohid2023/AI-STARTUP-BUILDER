@@ -16,7 +16,11 @@ export default function Login() {
     try {
       const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/user/login`, form);
       localStorage.setItem("token", res.data.token);
-      navigate("/dashboard");
+      if (res.data.user?.role === "admin") {
+        navigate("/admin");
+      } else {
+        navigate("/dashboard");
+      }
     } catch (err) {
       setError(err.response?.data?.message || "Login failed. Please check your credentials.");
     } finally {

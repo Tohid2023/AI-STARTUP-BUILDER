@@ -1,8 +1,29 @@
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { LayoutDashboard, PlusCircle, History, Settings, Sparkles, X, Bookmark } from "lucide-react";
+import { LayoutDashboard, PlusCircle, History, Settings, Sparkles, X, Bookmark, Shield } from "lucide-react";
+import axios from "axios";
 
 export default function Sidebar({ onClose }) {
   const location = useLocation();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const checkRole = () => {
+      const token = localStorage.getItem("token");
+      if (!token) return;
+      try {
+        const base64Url = token.split(".")[1];
+        const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+        const payload = JSON.parse(window.atob(base64));
+        if (payload.role === "admin") {
+          setIsAdmin(true);
+        }
+      } catch (error) {
+        console.error("Sidebar role decoding failed:", error);
+      }
+    };
+    checkRole();
+  }, []);
 
   const navItems = [
     { name: "Dashboard", path: "/dashboard", icon: LayoutDashboard },
@@ -11,6 +32,10 @@ export default function Sidebar({ onClose }) {
     { name: "History", path: "/history", icon: History },
     { name: "Settings", path: "/settings", icon: Settings },
   ];
+
+  if (isAdmin) {
+    navItems.push({ name: "Admin Panel", path: "/admin", icon: Shield });
+  }
 
   return (
     <div className="w-64 bg-white border-r border-gray-100 flex flex-col h-full shadow-sm relative z-10">

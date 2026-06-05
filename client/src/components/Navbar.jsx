@@ -59,7 +59,7 @@ export default function Navbar({ onMenuClick }) {
           </div>
           <div className="hidden md:block text-sm text-left">
             <p className="font-semibold text-gray-900 leading-none">{user?.name || "Loading..."}</p>
-            <p className="text-xs text-gray-500 mt-1">Free Plan</p>
+            <p className="text-xs text-slate-500 mt-1">{user?.role === "admin" ? "Admin Account" : "Free Plan"}</p>
           </div>
         </Link>
 

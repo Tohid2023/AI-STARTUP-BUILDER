@@ -21,6 +21,14 @@ const startupSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
   },
+  isDeleted: {
+    type: Boolean,
+    default: false,
+  },
 }, { timestamps: true });
+
+// Production Indexes
+startupSchema.index({ createdBy: 1, createdAt: -1, isDeleted: 1 });
+startupSchema.index({ createdAt: -1 });
 
 module.exports = mongoose.model("Startup", startupSchema);
