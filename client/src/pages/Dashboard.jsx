@@ -14,7 +14,9 @@ export default function Dashboard() {
       const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/startup/my`, {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       });
-      setStartups(res.data);
+      // Sort by newest first
+      const sortedStartups = res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      setStartups(sortedStartups);
     } catch (error) {
       console.error("Failed to fetch startups:", error);
     } finally {
@@ -50,7 +52,7 @@ export default function Dashboard() {
         </div>
         <Link 
           to="/create" 
-          className="gradient-bg w-full sm:w-auto px-4 py-2 rounded-lg font-medium text-sm shadow-sm flex items-center justify-center gap-2 group"
+          className="btn-primary w-full sm:w-auto text-sm px-5 py-2.5"
         >
           <Plus className="w-4 h-4" />
           <span>New Startup</span>
@@ -118,16 +120,16 @@ export default function Dashboard() {
               <div
                 key={s._id}
                 onClick={() => navigate(`/startup/${s._id}`)}
-                className="group relative bg-white rounded-2xl p-6 cursor-pointer flex flex-col h-full border border-gray-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden z-10"
+                className="group relative bg-white rounded-3xl p-6 md:p-8 cursor-pointer flex flex-col h-full border border-gray-100 shadow-subtle hover:shadow-premium-hover hover:-translate-y-1.5 transition-all duration-300 overflow-hidden z-10"
               >
                 {/* Subtle top gradient line */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-brand-400 via-indigo-400 to-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-brand-400 via-indigo-400 to-purple-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 
                 {/* Abstract background shape */}
                 <div className="absolute -right-10 -top-10 w-32 h-32 bg-brand-50 rounded-full blur-3xl opacity-0 group-hover:opacity-50 transition-opacity duration-500 pointer-events-none"></div>
 
-                <div className="flex justify-between items-start mb-5 relative z-20">
-                  <h3 className="text-xl font-black text-gray-900 line-clamp-1 leading-tight group-hover:text-brand-600 transition-colors">
+                <div className="flex justify-between items-start mb-5 relative z-20 mt-1">
+                  <h3 className="text-2xl font-extrabold text-gray-900 line-clamp-1 leading-tight group-hover:text-brand-600 transition-colors">
                     {s.title}
                   </h3>
                   
@@ -143,23 +145,25 @@ export default function Dashboard() {
                 
                 <div className="flex-1 relative z-20">
                   {/* Pitch as main description */}
-                  <p className="text-gray-700 font-medium text-sm mb-4 line-clamp-3 leading-relaxed">
+                  <p className="text-gray-600 font-medium text-sm mb-6 line-clamp-3 leading-relaxed">
                     {pitchText}
                   </p>
-                  
-                  {/* Original Idea as subtle context */}
-                  <div className="bg-gray-50/80 rounded-lg p-3 border border-gray-100/50 mb-4">
-                    <p className="text-xs text-gray-500 line-clamp-2 italic">
-                      "{s.idea}"
-                    </p>
-                  </div>
                 </div>
 
-                {/* Footer with tag */}
-                <div className="mt-auto pt-4 border-t border-gray-100 flex items-center relative z-20">
-                  <span className="text-[11px] font-bold tracking-wider uppercase bg-brand-50 text-brand-700 px-3 py-1.5 rounded-full border border-brand-100/50 truncate max-w-[200px]">
+                {/* Footer with tags */}
+                <div className="mt-auto pt-5 border-t border-gray-100 flex flex-wrap items-center gap-2 relative z-20">
+                  <span className="text-[10px] font-bold tracking-wider uppercase bg-gray-50 text-gray-600 px-3 py-1.5 rounded-lg border border-gray-200 truncate max-w-[150px]">
                     {categoryText}
                   </span>
+                  {(s.aiResponse && typeof s.aiResponse === 'object' && s.aiResponse.difficulty) ? (
+                     <span className={`text-[10px] font-bold tracking-wider uppercase px-3 py-1.5 rounded-lg border truncate max-w-[150px] ${s.aiResponse.difficulty === 'Easy' ? 'bg-green-50 text-green-700 border-green-100' : s.aiResponse.difficulty === 'Hard' ? 'bg-red-50 text-red-700 border-red-100' : 'bg-yellow-50 text-yellow-700 border-yellow-100'}`}>
+                       Diff: {s.aiResponse.difficulty}
+                     </span>
+                  ) : (
+                     <span className="text-[10px] font-bold tracking-wider uppercase bg-brand-50 text-brand-700 px-3 py-1.5 rounded-lg border border-brand-100 truncate max-w-[150px]">
+                       AI Gen
+                     </span>
+                  )}
                 </div>
               </div>
             );

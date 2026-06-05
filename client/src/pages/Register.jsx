@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { Sparkles, ArrowRight, Loader2, UserPlus } from "lucide-react";
+import { Sparkles, ArrowRight, ArrowLeft, Loader2, UserPlus } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function Register() {
@@ -25,6 +25,11 @@ export default function Register() {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#f8fafc] relative overflow-hidden">
+      <Link to="/" className="absolute top-6 left-6 md:top-8 md:left-8 flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors z-20 font-medium bg-white/50 hover:bg-white px-4 py-2 rounded-full shadow-sm backdrop-blur-md border border-gray-200/50">
+        <ArrowLeft className="w-4 h-4" />
+        <span className="text-sm">Back to Home</span>
+      </Link>
+      
       {/* Background Decorative Elements */}
       <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-500/10 rounded-full blur-3xl"></div>
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-accent-500/10 rounded-full blur-3xl"></div>

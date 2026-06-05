@@ -1,16 +1,25 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Sparkles, Loader2, Lightbulb, Heading } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { Sparkles, Loader2, Lightbulb, Heading, ArrowLeft } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom";
 import Layout from "../components/Layout";
 
 export default function CreateStartup() {
   const navigate = useNavigate();
   const [form, setForm] = useState({ idea: "", title: "" });
   const [loading, setLoading] = useState(false);
+  const [loadingStep, setLoadingStep] = useState(0);
   const [error, setError] = useState("");
   const [focusedField, setFocusedField] = useState(null);
   const [suggestions, setSuggestions] = useState([]);
+
+  const loadingSteps = [
+    "Analyzing Market Dynamics...",
+    "Identifying Target Audience...",
+    "Structuring Business Model...",
+    "Drafting Technical Architecture...",
+    "Finalizing Execution Plan..."
+  ];
 
   const allSuggestions = [
     { title: "DentalCRM AI", idea: "An AI-powered CRM for dental clinics that automatically schedules patient follow-ups based on treatment history." },
@@ -29,14 +38,21 @@ export default function CreateStartup() {
   const handleCreateStartup = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setLoadingStep(0);
     setError("");
+    
+    const stepInterval = setInterval(() => {
+      setLoadingStep(prev => prev < loadingSteps.length - 1 ? prev + 1 : prev);
+    }, 4500);
     
     try {
       await axios.post(`${import.meta.env.VITE_API_URL}/api/startup/create`, { idea: form.idea, title: form.title }, {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       });
+      clearInterval(stepInterval);
       navigate("/dashboard");
     } catch (err) {
+      clearInterval(stepInterval);
       setError(err.response?.data?.message || "Failed to generate startup plan. Please try again.");
       setLoading(false);
     }
@@ -44,7 +60,10 @@ export default function CreateStartup() {
 
   return (
     <Layout>
-      <div className="max-w-2xl mx-auto mt-8 animate-fade-in">
+      <div className="max-w-2xl mx-auto mt-2 sm:mt-8 animate-fade-in">
+        <Link to="/dashboard" className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors text-sm font-medium mb-8">
+          <ArrowLeft className="w-4 h-4" /> Back to Dashboard
+        </Link>
         <div className="text-center mb-10">
           <div className="inline-flex items-center justify-center p-4 bg-gradient-to-br from-brand-50 to-brand-100/50 rounded-2xl mb-4 shadow-sm border border-brand-100">
             <Sparkles className="w-8 h-8 text-brand-600" />
@@ -123,7 +142,7 @@ export default function CreateStartup() {
                 {loading ? (
                   <>
                     <Loader2 className="w-5 h-5 animate-spin" />
-                    Analyzing Market & Building Plan...
+                    {loadingSteps[loadingStep]}
                   </>
                 ) : (
                   <>

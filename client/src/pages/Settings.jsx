@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { User, Mail, Lock, Save, Loader2, CheckCircle2 } from "lucide-react";
+import { User, Mail, Lock, Save, Loader2, CheckCircle2, ArrowLeft } from "lucide-react";
+import { Link } from "react-router-dom";
 import Layout from "../components/Layout";
 
 export default function Settings() {
@@ -64,6 +65,9 @@ export default function Settings() {
   return (
     <Layout>
       <div className="max-w-2xl mx-auto animate-fade-in">
+        <Link to="/dashboard" className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors text-sm font-medium mb-6">
+          <ArrowLeft className="w-4 h-4" /> Back to Dashboard
+        </Link>
         <div className="flex justify-between items-center mb-8">
           <div>
             <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Settings</h1>

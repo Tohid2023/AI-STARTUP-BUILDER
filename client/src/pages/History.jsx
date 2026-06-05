@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { Clock, Eye, Trash2, Rocket, Search } from "lucide-react";
+import { Clock, Eye, Trash2, Rocket, Search, ArrowLeft } from "lucide-react";
 import Layout from "../components/Layout";
 
 export default function History() {
@@ -48,6 +48,9 @@ export default function History() {
   return (
     <Layout>
       <div className="animate-fade-in">
+        <Link to="/dashboard" className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition-colors text-sm font-medium mb-6">
+          <ArrowLeft className="w-4 h-4" /> Back to Dashboard
+        </Link>
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
           <div>
             <h1 className="text-2xl font-bold text-gray-900 tracking-tight">Generation History</h1>

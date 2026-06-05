@@ -166,9 +166,9 @@ export default function StartupDetails() {
         </div>
       </div>
 
-      <div ref={contentRef} id="startup-analysis-content" className="p-1 sm:p-2 bg-gray-50 -m-1 sm:-m-2 rounded-xl print:p-0 print:bg-white">
+      <div ref={contentRef} id="startup-analysis-content" className="p-1 sm:p-2 bg-transparent -m-1 sm:-m-2 rounded-xl print:p-0 print:bg-white">
       {/* Main Header Card */}
-      <div className="bg-white rounded-2xl shadow-lg border border-gray-100 overflow-hidden mb-8 relative transition-all duration-300 hover:shadow-xl print:shadow-none print:border-gray-200 print:mb-4">
+      <div className="bg-white rounded-3xl shadow-premium border border-gray-200 overflow-hidden mb-8 relative transition-all duration-300 hover:shadow-premium-hover hover:-translate-y-1 print:shadow-none print:border-gray-200 print:mb-4">
         <div className="absolute top-0 right-0 p-8 opacity-5 pointer-events-none">
           <Rocket className="w-64 h-64" />
         </div>
@@ -399,12 +399,12 @@ export default function StartupDetails() {
 
 function Card({ title, icon: Icon, color, bg, borderClass = "", children }) {
   return (
-    <div className={`bg-gradient-to-br from-white to-gray-50/80 rounded-2xl shadow-sm border border-gray-100 p-6 md:p-8 hover:scale-105 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 flex flex-col ${borderClass}`}>
+    <div className={`bg-gradient-to-br from-white to-gray-50/50 rounded-3xl shadow-subtle border border-gray-200 p-6 md:p-8 hover:scale-[1.02] hover:shadow-premium-hover hover:-translate-y-1.5 transition-all duration-300 flex flex-col ${borderClass}`}>
       <div className="flex items-center gap-3 mb-5">
         <div className={`p-3 rounded-xl ${bg} ${color}`}>
           <Icon className="w-5 h-5" />
         </div>
-        <h3 className="font-bold text-gray-900 text-lg md:text-xl tracking-tight">{title}</h3>
+        <h3 className="font-extrabold text-gray-900 text-lg md:text-xl tracking-tight">{title}</h3>
       </div>
       <div className="flex-1">
         {children}

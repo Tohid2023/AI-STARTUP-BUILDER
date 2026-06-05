@@ -1,7 +1,9 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Sparkles, Zap, Target, TrendingUp, Cpu, BarChart3, Layout, ChevronRight, CheckCircle2, Lock } from "lucide-react";
+import { Sparkles, ArrowRight, Zap, Target, TrendingUp, Cpu, BarChart3, Layout, ChevronRight, Menu, X, CheckCircle2, Lock, Globe, Database } from "lucide-react";
 
 export default function Landing() {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900 font-sans selection:bg-brand-500/30">
       {/* NAVBAR */}
@@ -20,15 +22,39 @@ export default function Landing() {
             <a href="#pricing" className="hover:text-brand-600 transition-colors">Pricing</a>
           </div>
 
-          <div className="flex items-center gap-4">
-            <Link to="/login" className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors hidden sm:block">
+          <div className="hidden md:flex items-center gap-4">
+            <Link to="/login" className="text-sm font-bold text-gray-600 hover:text-gray-900 transition-colors">
               Log In
             </Link>
-            <Link to="/register" className="gradient-bg px-5 py-2.5 rounded-lg text-sm font-bold shadow-md shadow-brand-500/20 hover:shadow-brand-500/40 hover:-translate-y-0.5 transition-all">
+            <Link to="/register" className="btn-primary py-2.5 px-5 text-sm">
               Get Started
             </Link>
           </div>
+
+          {/* Mobile Menu Toggle */}
+          <button 
+            className="md:hidden p-2 text-gray-600"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          </button>
         </div>
+
+        {/* Mobile Menu Overlay */}
+        {isMobileMenuOpen && (
+          <div className="md:hidden absolute top-[80px] left-0 w-full bg-white shadow-xl z-50 border-t border-gray-100 flex flex-col p-6 gap-6 animate-in slide-in-from-top-2">
+            <a href="#features" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-gray-800">Features</a>
+            <a href="#how-it-works" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-gray-800">How it Works</a>
+            <a href="#pricing" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-gray-800">Pricing</a>
+            <div className="h-px bg-gray-100 w-full"></div>
+            <Link to="/login" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-medium text-gray-800">
+              Log In
+            </Link>
+            <Link to="/register" onClick={() => setIsMobileMenuOpen(false)} className="btn-primary w-full py-3 justify-center text-center">
+              Get Started
+            </Link>
+          </div>
+        )}
       </nav>
 
       {/* HERO SECTION */}
@@ -38,20 +64,20 @@ export default function Landing() {
         <div className="max-w-4xl mx-auto text-center relative z-10 animate-fade-in">
           <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-50 border border-brand-100 text-brand-700 text-sm font-bold mb-8 shadow-sm">
             <Sparkles className="w-4 h-4" />
-            <span>AI-Powered Startup Generation Engine V2</span>
+            <span>AI Startup Generator V2</span>
           </div>
           <h1 className="text-5xl md:text-7xl font-extrabold text-gray-900 tracking-tight leading-[1.1] mb-6">
-            Build Your Startup with <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-indigo-600">AI in Minutes.</span>
+            From Idea to Execution-Ready <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-500 to-indigo-600">Startup in 30 Seconds.</span>
           </h1>
           <p className="text-lg md:text-xl text-gray-500 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Stop wasting months on market research and business plans. Let our AI instantly generate your complete startup strategy, features, and monetization plan.
+            Skip weeks of market research. Let our AI generate your complete business model, features, and technical architecture instantly.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link to="/register" className="w-full sm:w-auto gradient-bg px-8 py-4 rounded-xl text-base font-bold shadow-xl shadow-brand-500/20 hover:shadow-brand-500/40 hover:-translate-y-1 transition-all flex items-center justify-center gap-2">
-              Start Building Free <ChevronRight className="w-5 h-5" />
+            <Link to="/register" className="w-full sm:w-auto btn-primary py-4 px-8 text-lg">
+              Generate Idea <ChevronRight className="w-5 h-5" />
             </Link>
-            <a href="#product-preview" className="w-full sm:w-auto px-8 py-4 rounded-xl text-base font-bold text-gray-700 bg-white border border-gray-200 hover:bg-gray-50 hover:shadow-sm transition-all flex items-center justify-center gap-2">
-              View Demo
+            <a href="#product-preview" className="w-full sm:w-auto btn-secondary py-4 px-8 text-lg">
+              View Example
             </a>
           </div>
           <p className="mt-6 text-sm text-gray-400 font-medium">No credit card required • Join 10,000+ founders</p>
@@ -60,122 +86,61 @@ export default function Landing() {
 
       {/* PRODUCT PREVIEW MOCKUP */}
       <section id="product-preview" className="py-12 px-6">
-        <div className="max-w-6xl mx-auto relative group perspective">
-          {/* Decorative glow */}
-          <div className="absolute -inset-1 bg-gradient-to-r from-brand-400 via-indigo-500 to-purple-500 rounded-3xl blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+        <div className="max-w-5xl mx-auto relative group perspective">
+          <div className="absolute -inset-1 bg-gradient-to-r from-brand-400 via-indigo-500 to-purple-500 rounded-[2rem] blur opacity-20 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
           
-          <div className="relative bg-white rounded-2xl shadow-2xl border border-gray-100/50 overflow-hidden transform group-hover:-translate-y-2 transition-transform duration-500">
-            {/* Browser Header */}
-            <div className="bg-gray-50 border-b border-gray-100 px-4 py-3 flex items-center gap-2">
-              <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-red-400"></div>
-                <div className="w-3 h-3 rounded-full bg-amber-400"></div>
-                <div className="w-3 h-3 rounded-full bg-emerald-400"></div>
+          <div className="relative bg-white rounded-3xl shadow-premium border border-gray-100/50 overflow-hidden transform transition-transform duration-500 flex flex-col md:flex-row">
+            
+            {/* Input Side */}
+            <div className="w-full md:w-5/12 bg-gray-50/50 border-r border-gray-100 p-8 flex flex-col justify-center">
+              <div className="inline-flex items-center gap-2 text-brand-600 text-sm font-bold mb-4">
+                <span className="w-6 h-6 rounded-full bg-brand-100 flex items-center justify-center text-xs">1</span>
+                Enter Your Idea
               </div>
-              <div className="ml-4 bg-white border border-gray-200 rounded-md px-3 py-1 text-xs text-gray-400 flex-1 max-w-sm flex items-center gap-2">
-                <Lock className="w-3 h-3" /> app.aistartupbuilder.com
+              <div className="bg-white border border-gray-200 shadow-sm rounded-xl p-4 relative mb-4">
+                <p className="text-gray-900 font-medium text-lg leading-relaxed">
+                  "An app for indie creators to automatically convert their long-form videos into viral short-form clips using AI."
+                </p>
+                <div className="absolute -right-3 -bottom-3 bg-brand-500 text-white p-2 rounded-lg shadow-lg">
+                  <Sparkles className="w-4 h-4" />
+                </div>
               </div>
+              <div className="h-2 w-full bg-gray-200 rounded-full overflow-hidden mt-2">
+                <div className="h-full bg-brand-500 w-full animate-pulse"></div>
+              </div>
+              <p className="text-xs text-center text-gray-400 mt-3 font-medium">AI is generating business model...</p>
             </div>
-            {/* Dashboard Mockup Content */}
-            <div className="flex h-[500px] overflow-hidden text-left">
-              {/* Sidebar Mock */}
-              <div className="w-48 lg:w-56 border-r border-gray-100 bg-gray-50/50 hidden md:flex flex-col justify-between">
-                <div>
-                  <div className="p-4 flex items-center gap-2 mb-4">
-                    <div className="bg-brand-500 p-1.5 rounded-lg"><Sparkles className="w-4 h-4 text-white" /></div>
-                    <span className="font-bold text-sm text-gray-900">AI Startup Builder</span>
-                  </div>
-                  <div className="px-3">
-                    <div className="text-[10px] font-bold text-gray-400 mb-2 px-2">MAIN MENU</div>
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2 bg-brand-50 text-brand-600 px-2 py-1.5 rounded-md text-xs font-medium"><Layout className="w-3.5 h-3.5" /> Dashboard</div>
-                      <div className="flex items-center gap-2 text-gray-500 px-2 py-1.5 rounded-md text-xs font-medium"><Sparkles className="w-3.5 h-3.5" /> Create Startup</div>
-                      <div className="flex items-center gap-2 text-gray-500 px-2 py-1.5 rounded-md text-xs font-medium"><TrendingUp className="w-3.5 h-3.5" /> History</div>
-                      <div className="flex items-center gap-2 text-gray-500 px-2 py-1.5 rounded-md text-xs font-medium"><Cpu className="w-3.5 h-3.5" /> Settings</div>
-                    </div>
-                  </div>
-                </div>
-                <div className="p-4">
-                  <div className="bg-white border border-gray-200 rounded-lg p-3 shadow-sm">
-                    <p className="text-[10px] font-bold text-gray-900">Upgrade to Pro</p>
-                    <p className="text-[9px] text-gray-500 mt-1 mb-2">Get unlimited AI generations.</p>
-                    <div className="text-[10px] font-bold text-brand-600">View Plans</div>
-                  </div>
-                </div>
+
+            {/* Output Side */}
+            <div className="w-full md:w-7/12 bg-white p-8">
+              <div className="inline-flex items-center gap-2 text-emerald-600 text-sm font-bold mb-6">
+                <span className="w-6 h-6 rounded-full bg-emerald-100 flex items-center justify-center text-xs">2</span>
+                Execution Ready
               </div>
               
-              {/* Main Area Mock */}
-              <div className="flex-1 bg-white flex flex-col">
-                {/* Topbar Mock */}
-                <div className="h-14 border-b border-gray-100 flex items-center justify-between px-6">
-                   <div className="w-64 h-8 bg-gray-50 rounded-lg border border-gray-100 flex items-center px-3">
-                     <span className="w-3 h-3 rounded-full border-2 border-gray-300"></span>
-                   </div>
-                   <div className="flex items-center gap-3">
-                     <div className="w-6 h-6 rounded-full bg-gray-100"></div>
-                     <div className="w-6 h-6 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center text-[10px] font-bold">T</div>
-                   </div>
+              <div className="space-y-4">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="bg-brand-50 text-brand-700 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider">SaaS & Media</span>
+                    <span className="bg-emerald-50 text-emerald-700 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider border border-emerald-100">Difficulty: Medium</span>
+                  </div>
+                  <h3 className="text-2xl font-black text-gray-900">CreatorFlow AI</h3>
+                  <p className="text-gray-500 text-sm mt-1">Automated multi-platform content repurposing engine.</p>
                 </div>
                 
-                {/* Content Mock */}
-                <div className="p-6 overflow-hidden">
-                  <div className="flex justify-between items-center mb-6">
-                    <div>
-                      <h2 className="text-xl font-bold text-gray-900">Dashboard</h2>
-                      <p className="text-xs text-gray-500">Manage and track your AI-generated startups.</p>
-                    </div>
-                    <div className="bg-brand-500 text-white px-3 py-1.5 rounded-lg text-xs font-bold shadow-sm">+ New Startup</div>
+                <div className="grid grid-cols-2 gap-4 mt-6">
+                  <div className="border border-gray-100 rounded-xl p-4 bg-gray-50/50">
+                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">Tech Stack</p>
+                    <p className="text-sm font-medium text-gray-900">React, Node.js, FFmpeg, OpenAI API</p>
                   </div>
-
-                  {/* Stat Cards */}
-                  <div className="grid grid-cols-3 gap-4 mb-6">
-                    <div className="h-20 bg-white border border-gray-100 shadow-sm rounded-xl p-3 flex items-center gap-3">
-                       <div className="w-10 h-10 rounded-lg bg-blue-50 text-blue-500 flex items-center justify-center"><Zap className="w-5 h-5" /></div>
-                       <div><p className="text-[10px] text-gray-500 font-medium">Total Startups</p><p className="font-bold text-lg text-gray-900">4</p></div>
-                    </div>
-                    <div className="h-20 bg-white border border-gray-100 shadow-sm rounded-xl p-3 flex items-center gap-3">
-                       <div className="w-10 h-10 rounded-lg bg-purple-50 text-purple-500 flex items-center justify-center"><Target className="w-5 h-5" /></div>
-                       <div><p className="text-[10px] text-gray-500 font-medium">AI Generations</p><p className="font-bold text-lg text-gray-900">16</p></div>
-                    </div>
-                    <div className="h-20 bg-white border border-gray-100 shadow-sm rounded-xl p-3 flex items-center gap-3">
-                       <div className="w-10 h-10 rounded-lg bg-emerald-50 text-emerald-500 flex items-center justify-center"><BarChart3 className="w-5 h-5" /></div>
-                       <div><p className="text-[10px] text-gray-500 font-medium">Platform Status</p><p className="font-bold text-lg text-gray-900">Active</p></div>
-                    </div>
-                  </div>
-
-                  <h3 className="text-sm font-bold text-gray-900 mb-3">Recent Startups</h3>
-                  <div className="grid grid-cols-3 gap-4">
-                    {/* Startup Card 1 */}
-                    <div className="bg-white border border-gray-100 shadow-sm rounded-xl p-4 flex flex-col justify-between h-40">
-                      <div>
-                        <h4 className="font-bold text-sm text-gray-900 mb-1">Retrofit E-Bike</h4>
-                        <p className="text-[10px] text-gray-500 leading-tight">An on-demand, van-based bicycle repair service dispatching certified mechanics...</p>
-                      </div>
-                      <div className="bg-gray-50 p-2 rounded text-[9px] text-gray-400 italic">"Launch a mobile, on-demand bicycle maintenance..."</div>
-                      <div className="bg-gray-100 text-gray-600 text-[8px] font-bold px-2 py-1 rounded w-max mt-2">MICRO-MOBILITY</div>
-                    </div>
-                    {/* Startup Card 2 */}
-                    <div className="bg-white border border-gray-100 shadow-sm rounded-xl p-4 flex flex-col justify-between h-40">
-                      <div>
-                        <h4 className="font-bold text-sm text-gray-900 mb-1">Creator Economy</h4>
-                        <p className="text-[10px] text-gray-500 leading-tight">Automate content transformation (long video to short clips, articles to threads)...</p>
-                      </div>
-                      <div className="bg-gray-50 p-2 rounded text-[9px] text-gray-400 italic">"Software that helps content creators easily..."</div>
-                      <div className="bg-gray-100 text-gray-600 text-[8px] font-bold px-2 py-1 rounded w-max mt-2">SAAS & MEDIA</div>
-                    </div>
-                    {/* Startup Card 3 */}
-                    <div className="bg-white border border-gray-100 shadow-sm rounded-xl p-4 flex flex-col justify-between h-40">
-                      <div>
-                        <h4 className="font-bold text-sm text-gray-900 mb-1">AeroVerify</h4>
-                        <p className="text-[10px] text-gray-500 leading-tight">Automated air cargo inspection using ruggedized multispectral cameras...</p>
-                      </div>
-                      <div className="bg-gray-50 p-2 rounded text-[9px] text-gray-400 italic">"Manual cargo inspections for air freight are slow..."</div>
-                      <div className="bg-gray-100 text-gray-600 text-[8px] font-bold px-2 py-1 rounded w-max mt-2">LOGISTICS TECH</div>
-                    </div>
+                  <div className="border border-gray-100 rounded-xl p-4 bg-gray-50/50">
+                    <p className="text-xs text-gray-400 font-bold uppercase tracking-wider mb-1">Monetization</p>
+                    <p className="text-sm font-medium text-gray-900">Freemium ($15/mo Pro)</p>
                   </div>
                 </div>
               </div>
             </div>
+
           </div>
         </div>
       </section>
@@ -193,24 +158,24 @@ export default function Landing() {
             <div className="hidden md:block absolute top-12 left-1/6 right-1/6 h-0.5 bg-gray-100 -z-10"></div>
             
             <div className="text-center relative">
-              <div className="w-24 h-24 mx-auto bg-brand-50 border-4 border-white shadow-sm rounded-full flex items-center justify-center mb-6">
-                <span className="text-3xl font-extrabold text-brand-600">1</span>
+              <div className="w-20 h-20 mx-auto bg-white border border-gray-100 shadow-premium rounded-2xl flex items-center justify-center mb-6 transform hover:-translate-y-1 transition-transform">
+                <span className="text-3xl font-black text-brand-600 bg-brand-50 w-12 h-12 rounded-xl flex items-center justify-center">1</span>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">Enter Your Idea</h3>
               <p className="text-gray-500 leading-relaxed">Type a sentence or two about the problem you want to solve or the industry you want to disrupt.</p>
             </div>
             
             <div className="text-center relative">
-              <div className="w-24 h-24 mx-auto bg-indigo-50 border-4 border-white shadow-sm rounded-full flex items-center justify-center mb-6">
-                <span className="text-3xl font-extrabold text-indigo-600">2</span>
+              <div className="w-20 h-20 mx-auto bg-white border border-gray-100 shadow-premium rounded-2xl flex items-center justify-center mb-6 transform hover:-translate-y-1 transition-transform">
+                <span className="text-3xl font-black text-indigo-600 bg-indigo-50 w-12 h-12 rounded-xl flex items-center justify-center">2</span>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">AI Generation</h3>
               <p className="text-gray-500 leading-relaxed">Our advanced models analyze the market and instantly generate your features, pricing, and tech stack.</p>
             </div>
             
             <div className="text-center relative">
-              <div className="w-24 h-24 mx-auto bg-purple-50 border-4 border-white shadow-sm rounded-full flex items-center justify-center mb-6">
-                <span className="text-3xl font-extrabold text-purple-600">3</span>
+              <div className="w-20 h-20 mx-auto bg-white border border-gray-100 shadow-premium rounded-2xl flex items-center justify-center mb-6 transform hover:-translate-y-1 transition-transform">
+                <span className="text-3xl font-black text-purple-600 bg-purple-50 w-12 h-12 rounded-xl flex items-center justify-center">3</span>
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-2">Launch & Scale</h3>
               <p className="text-gray-500 leading-relaxed">Export your structured business plan and start building immediately with a clear roadmap.</p>
@@ -285,25 +250,25 @@ export default function Landing() {
               </h2>
               <div className="space-y-6">
                 <BenefitRow text="Save 10+ hours per week on market research" />
-                <BenefitRow text="Leverage elite AI models for technical architecture" />
-                <BenefitRow text="Outpace competitors with a clear execution roadmap" />
-                <BenefitRow text="No prior business or MBA experience required" />
+                <BenefitRow text="Generate complete technical architecture in seconds" />
+                <BenefitRow text="Get clear, actionable monetization strategies" />
+                <BenefitRow text="Validate ideas before writing a single line of code" />
               </div>
             </div>
           </div>
           
           <div className="lg:w-1/2">
-            <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 md:p-12 text-white shadow-2xl relative overflow-hidden">
+            <div className="bg-gray-900 rounded-3xl p-8 md:p-12 text-white shadow-premium relative overflow-hidden">
                <div className="absolute top-0 right-0 w-64 h-64 bg-brand-500/20 rounded-full blur-3xl transform translate-x-1/3 -translate-y-1/3"></div>
-               <Quote className="w-12 h-12 text-brand-400 mb-6 opacity-50" />
-               <p className="text-xl md:text-2xl font-medium leading-relaxed mb-8 relative z-10">
-                 "This platform took my vague idea and turned it into a concrete technical spec and pricing model. I built my MVP 3x faster because I didn't have to guess the strategy."
+               <Quote className="w-10 h-10 text-brand-500 mb-6 opacity-80" />
+               <p className="text-xl md:text-2xl font-medium leading-relaxed mb-8 relative z-10 text-gray-100">
+                 "Instead of spending three weeks doing market research and defining a feature set, I got a full technical spec and pricing strategy in 30 seconds. It gave me exactly what I needed to start coding."
                </p>
                <div className="flex items-center gap-4">
-                 <div className="w-12 h-12 bg-gray-700 rounded-full"></div>
+                 <div className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center font-bold text-lg">SJ</div>
                  <div>
                    <p className="font-bold text-white">Sarah Jenkins</p>
-                   <p className="text-sm text-gray-400">Founder, LocalBite</p>
+                   <p className="text-sm text-gray-400">Indie Hacker</p>
                  </div>
                </div>
             </div>
@@ -321,7 +286,7 @@ export default function Landing() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
             {/* Free */}
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex flex-col">
+            <div className="bg-white rounded-3xl p-8 shadow-subtle border border-gray-100 flex flex-col hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300">
               <h3 className="text-xl font-bold text-gray-900 mb-2">Free</h3>
               <p className="text-gray-500 text-sm mb-6">Perfect for testing the waters.</p>
               <div className="mb-8">
@@ -339,7 +304,7 @@ export default function Landing() {
             </div>
 
             {/* Pro */}
-            <div className="bg-white rounded-3xl p-8 shadow-xl shadow-brand-500/10 border-2 border-brand-500 flex flex-col relative transform md:-translate-y-4">
+            <div className="bg-white rounded-3xl p-8 shadow-premium border-2 border-brand-500 flex flex-col relative transform md:-translate-y-4 hover:shadow-premium-hover transition-all duration-300">
               <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-brand-500 to-indigo-600 text-white px-4 py-1 rounded-full text-xs font-bold tracking-wide uppercase shadow-sm">
                 Most Popular
               </div>
@@ -362,7 +327,7 @@ export default function Landing() {
             </div>
 
             {/* Enterprise */}
-            <div className="bg-white rounded-3xl p-8 shadow-sm border border-gray-100 flex flex-col">
+            <div className="bg-white rounded-3xl p-8 shadow-subtle border border-gray-100 flex flex-col hover:shadow-premium-hover hover:-translate-y-1 transition-all duration-300">
               <h3 className="text-xl font-bold text-gray-900 mb-2">Agency</h3>
               <p className="text-gray-500 text-sm mb-6">For venture studios and agencies.</p>
               <div className="mb-8">
@@ -397,7 +362,7 @@ export default function Landing() {
           <p className="text-xl text-white/90 font-medium mb-10 max-w-2xl mx-auto drop-shadow-sm">
             Join thousands of founders who are validating and building their products faster than ever before.
           </p>
-          <Link to="/register" className="inline-flex items-center justify-center gap-2 bg-white text-gray-900 px-8 py-4 rounded-xl text-lg font-bold shadow-2xl hover:scale-105 active:scale-95 transition-all duration-200">
+          <Link to="/register" className="bg-white text-gray-900 hover:bg-gray-50 shadow-premium hover:shadow-premium-hover hover:-translate-y-0.5 active:scale-95 transition-all duration-200 font-bold py-4 px-8 rounded-xl inline-flex items-center justify-center gap-2 text-lg">
             Get Started Free <ChevronRight className="w-5 h-5 text-brand-500" />
           </Link>
         </div>
@@ -458,11 +423,11 @@ export default function Landing() {
 // Subcomponents for cleanliness
 function FeatureCard({ icon: Icon, title, desc, color, bg }) {
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group">
-      <div className={`w-12 h-12 rounded-xl flex items-center justify-center mb-5 ${bg} ${color} group-hover:scale-110 transition-transform`}>
-        <Icon className="w-6 h-6" />
+    <div className="bg-white rounded-3xl p-8 shadow-subtle border border-gray-100 hover:shadow-premium-hover hover:-translate-y-1.5 transition-all duration-300 group">
+      <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 ${bg} ${color} group-hover:scale-110 transition-transform`}>
+        <Icon className="w-7 h-7" />
       </div>
-      <h3 className="text-xl font-bold text-gray-900 mb-2">{title}</h3>
+      <h3 className="text-xl font-bold text-gray-900 mb-3">{title}</h3>
       <p className="text-gray-500 leading-relaxed">{desc}</p>
     </div>
   );
