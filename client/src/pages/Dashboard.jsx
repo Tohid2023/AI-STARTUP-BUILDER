@@ -11,7 +11,7 @@ export default function Dashboard() {
 
   const fetchData = async () => {
     try {
-      const res = await axios.get("http://localhost:5001/api/startup/my", {
+      const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/startup/my`, {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       });
       setStartups(res.data);
@@ -31,7 +31,7 @@ export default function Dashboard() {
     if (!window.confirm("Are you sure you want to delete this startup?")) return;
     
     try {
-      await axios.delete(`http://localhost:5001/api/startup/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_API_URL}/api/startup/${id}`, {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       });
       setStartups(startups.filter(s => s._id !== id));

@@ -10,7 +10,7 @@ export default function Navbar({ onMenuClick }) {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get("http://localhost:5001/api/user/profile", {
+        const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/user/profile`, {
           headers: { Authorization: "Bearer " + localStorage.getItem("token") },
         });
         setUser(res.data);

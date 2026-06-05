@@ -32,7 +32,7 @@ export default function CreateStartup() {
     setError("");
     
     try {
-      await axios.post("http://localhost:5001/api/startup/create", { idea: form.idea, title: form.title }, {
+      await axios.post(`${import.meta.env.VITE_API_URL}/api/startup/create`, { idea: form.idea, title: form.title }, {
         headers: { Authorization: "Bearer " + localStorage.getItem("token") },
       });
       navigate("/dashboard");
